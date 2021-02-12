@@ -78,7 +78,9 @@ var context = function (_a) {
                     decodedToken = jwt.verifyToken(token);
                     if (!decodedToken)
                         return [2 /*return*/, { user: null }];
-                    return [4 /*yield*/, store.users.findOrCreate({ where: { email: 'test@test.com' } })];
+                    return [4 /*yield*/, store.users.findOrCreate({
+                            where: { email: "test@test.com" },
+                        })];
                 case 1:
                     users = _b.sent();
                     user = users && users[0] ? users[0] : null;
@@ -95,6 +97,7 @@ var server = new apollo_server_1.ApolloServer({
     context: context,
     introspection: true,
     playground: true,
+    formatError: function (err) { },
     engine: __assign({ apiKey: process.env.ENGINE_API_KEY }, internalEngineDemo),
 });
 // Start our server if we're not in a test env.

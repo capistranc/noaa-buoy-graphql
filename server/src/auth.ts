@@ -1,5 +1,5 @@
 const secretKey = process.env.SECRET_KEY;
-import * as jwt from 'jsonwebtoken'
+import * as jwt from "jsonwebtoken";
 
 function createToken() {
   const token = jwt.sign(

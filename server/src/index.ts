@@ -1,13 +1,12 @@
 require("dotenv").config();
 
-import { ApolloServer } from "apollo-server"
-import isEmail from "isemail"
+import { ApolloServer } from "apollo-server";
 
-import typeDefs from "./type-defs"
+import typeDefs from "./type-defs";
 import resolvers from "./resolvers";
 import { createStore } from "./utils";
 
-import LaunchAPI from "./datasources/launch"
+import LaunchAPI from "./datasources/launch";
 import UserAPI from "./datasources/user";
 import { DataSource } from "apollo-datasource";
 
@@ -17,7 +16,7 @@ const internalEngineDemo = require("./engine-demo");
 const store = createStore();
 
 // set up any dataSources our resolvers need
-const dataSources:() => any = () => ({
+const dataSources: () => any = () => ({
   launchAPI: new LaunchAPI(),
   userAPI: new UserAPI({ store }),
 });
@@ -34,7 +33,9 @@ const context = async ({ req }) => {
   // if the email isn't formatted validly, return null for user
   // if (!isEmail.validate(email)) return { user: null };
   // find a user by their email
-  const users = await store.users.findOrCreate({ where: { email: 'test@test.com' } });
+  const users = await store.users.findOrCreate({
+    where: { email: "test@test.com" },
+  });
   const user = users && users[0] ? users[0] : null;
 
   return { user: { ...user, token } };
@@ -48,6 +49,7 @@ const server = new ApolloServer({
   context,
   introspection: true,
   playground: true,
+  formatError: (err) => {},
   engine: {
     apiKey: process.env.ENGINE_API_KEY,
     ...internalEngineDemo,

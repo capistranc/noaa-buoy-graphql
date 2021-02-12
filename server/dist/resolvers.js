@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var paginateResults = require("./utils").paginateResults;
+var _a = require("apollo-server"), ApolloServer = _a.ApolloServer, gql = _a.gql, AuthenticationError = _a.AuthenticationError;
 var jwt = require("./auth");
 var resolvers = {
     Query: {
